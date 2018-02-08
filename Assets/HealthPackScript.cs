@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthPackScript : MonoBehaviour {
 
     public LayerMask m_TankMask;                      // used to only affect the player layer (only tanks), no other layer
+    public ParticleSystem m_PickupParticles;
     //public AudioSource m_ExplosionAudio;            // TODO: add "health regain" sound effect + maybe particles??
     public float m_HealPower = 25f;                   // amount of health healed
     public float m_MaxLifeTime = 7f;                  // packs should go away after a while
@@ -28,6 +29,11 @@ public class HealthPackScript : MonoBehaviour {
                 // heal the tank
                 targetHealth.RegainHealth(m_HealPower);
             }
+            m_PickupParticles.transform.parent = null; // detach particles from parent
+            m_PickupParticles.Play();
+
+            // remove particple system, then the game object itself
+            Destroy(m_PickupParticles.gameObject, m_PickupParticles.duration);
             // remove game object
             Destroy(gameObject);
         }

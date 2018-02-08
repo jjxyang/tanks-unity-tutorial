@@ -50,6 +50,20 @@ public class TankHealth : MonoBehaviour
         }
     }
 
+    public void RegainHealth(float amount)
+    {
+        // public function so health packs can heal damage
+        m_CurrentHealth += amount;
+
+        // ensure player cannot heal past max health
+        if (m_CurrentHealth > m_StartingHealth)
+        {
+            m_CurrentHealth = m_StartingHealth;
+        }
+
+        SetHealthUI();
+    }
+
 
     private void SetHealthUI()
     {

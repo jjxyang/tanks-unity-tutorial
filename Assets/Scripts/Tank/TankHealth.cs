@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TankHealth : MonoBehaviour
@@ -7,7 +8,8 @@ public class TankHealth : MonoBehaviour
     public Slider m_Slider;                        // slider UI element
     public Image m_FillImage;                      
     public Color m_FullHealthColor = Color.green;  
-    public Color m_ZeroHealthColor = Color.red;    
+    public Color m_ZeroHealthColor = Color.red;
+    public Text m_HPText;
     public GameObject m_ExplosionPrefab;           // allows explosion to be instantiated at runtime
     
     private AudioSource m_ExplosionAudio;          // references to audio source on instantiated explosion prefab
@@ -71,6 +73,8 @@ public class TankHealth : MonoBehaviour
         m_Slider.value = m_CurrentHealth;
         // lerp --> linear interpolation between 2 colors, based on fraction of health remaining
         m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+        // change hp text to show amount of hp now
+        m_HPText.text = "" + Math.Round(m_CurrentHealth) + " HP";
     }
 
 

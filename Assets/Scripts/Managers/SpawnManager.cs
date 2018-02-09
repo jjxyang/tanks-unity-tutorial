@@ -6,7 +6,6 @@ public class SpawnManager : MonoBehaviour {
 
 
     public EnemySpawnData[] enemySpawns;
-    int score = 0;
 
     [System.Serializable]
     public struct EnemySpawnData

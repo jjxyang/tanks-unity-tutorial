@@ -16,7 +16,6 @@ public class SpawnManager : MonoBehaviour {
         public float maxSpawnDelay;  // number of seconds between spawns at the start
         public float timeUntilMaxSpawnDelay; // number of seconds between enemy beginning to spawn and the enemy spawning at its maximum rate
         public float firstSpawnTime;     // How many seconds to wait before this enemy type spawns
-        public int score;   // points given when enemy spawns
 
         [HideInInspector]
         public float spawnTimer;
@@ -24,14 +23,13 @@ public class SpawnManager : MonoBehaviour {
         public float currentSpawnDelay;
 
         // While the constructor is not required if you are always setting it in the inspector it is good practice
-        public EnemySpawnData(GameObject _prefab, float _minSpawnDelay, float _maxSpawnDelay, float _timeUntilMaxSpawnDelay, float _firstSpawnTime, int _score)
+        public EnemySpawnData(GameObject _prefab, float _minSpawnDelay, float _maxSpawnDelay, float _timeUntilMaxSpawnDelay, float _firstSpawnTime)
         {
             prefab = _prefab;
             minSpawnDelay = _minSpawnDelay;
             maxSpawnDelay = _maxSpawnDelay;
             timeUntilMaxSpawnDelay = _timeUntilMaxSpawnDelay;
             firstSpawnTime = _firstSpawnTime;
-            score = _score;
             spawnTimer = maxSpawnDelay;
             currentSpawnDelay = maxSpawnDelay;
         }
@@ -45,7 +43,6 @@ public class SpawnManager : MonoBehaviour {
                 continue;
             }
 
-
             float lerpX = Mathf.Abs(enemySpawns[i].firstSpawnTime) / enemySpawns[i].timeUntilMaxSpawnDelay;
             lerpX = Mathf.Clamp(lerpX, 0.0f, 1.0f);
             enemySpawns[i].currentSpawnDelay = Mathf.Lerp(enemySpawns[i].maxSpawnDelay, enemySpawns[i].minSpawnDelay, lerpX);
@@ -54,8 +51,6 @@ public class SpawnManager : MonoBehaviour {
             {
                 enemySpawns[i].spawnTimer = enemySpawns[i].currentSpawnDelay;
                 Instantiate(enemySpawns[i].prefab);
-                score += enemySpawns[i].score;
-                Debug.Log("Score: " + score);
             }
         }
 	}    

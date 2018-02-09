@@ -74,7 +74,15 @@ public class TankHealth : MonoBehaviour
         // lerp --> linear interpolation between 2 colors, based on fraction of health remaining
         m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
         // change hp text to show amount of hp now
-        m_HPText.text = "" + Math.Round(m_CurrentHealth) + " HP";
+        if (m_CurrentHealth < 1)
+        {
+            // avoid the case where user sees 0 HP but tank is still alive
+            m_HPText.text = "" + Math.Ceiling(m_CurrentHealth) + " HP";
+        }
+        else
+        {
+            m_HPText.text = "" + Math.Round(m_CurrentHealth) + " HP";
+        }
     }
 
 
